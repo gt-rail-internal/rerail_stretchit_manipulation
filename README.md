@@ -15,3 +15,8 @@ Finally, run the test node inside the scripts folder:
 ```
 python3 test_ik_on_robot.py
 ```
+### Set up a point
+Run keyboard teleop:
+```
+rosrun stretch_core keyboard_teleop
+```
