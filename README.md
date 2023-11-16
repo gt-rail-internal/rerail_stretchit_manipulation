@@ -1,5 +1,8 @@
 # rerail_stretchit_manipulation
-Manipulation stack for Stretch 2
+Manipulation stack for Stretch 2:
+
+This package uses the `StretchIK` class to compute the inverse kinematics to grasp an object given a 3D pose. It considers Stretch as a cartesian manipulator.
+The script `python3 manipulation_grasp.py` executes a series of commands to grasp an object using a top-down approach.
 
 ### How to use it
 In one terminal run:
@@ -13,10 +16,8 @@ rosrun rviz rviz -d `rospack find stretch_core`/rviz/stretch_simple_test.rviz
 Finally, run the test node inside the scripts folder:
 
 ```
-python3 test_ik_on_robot.py
+python3 manipulation_grasp.py
 ```
-### Set up a point
-Run keyboard teleop:
-```
-rosrun stretch_core keyboard_teleop
-```
+### You need grasp pose working!
+TODO:
+Put this together with the grasp pose package.
