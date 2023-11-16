@@ -2,7 +2,7 @@
 Manipulation stack for Stretch 2:
 
 This package uses the `StretchIK` class to compute the inverse kinematics to grasp an object given a 3D pose. It considers Stretch as a cartesian manipulator.
-The script `python3 manipulation_grasp.py` executes a series of commands to grasp an object using a top-down approach.
+The script `manipulation_grasp.py` executes a series of commands to grasp an object using a top-down approach.
 
 ### How to use it
 In one terminal run:
