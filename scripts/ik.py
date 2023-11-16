@@ -4,6 +4,8 @@ import json
 from utils import rotation_matrix_to_rpy
 from typing import List
 
+# NOTE: Adapted from: https://github.com/mlamsey/stretch_ik
+
 class StretchPose:
     """
     Data structure for storing Stretch's pose. Indented to use with Stretch Original Gripper.
@@ -11,27 +13,26 @@ class StretchPose:
 
     def __init__(self):
         # POSE KEY:
-        # "0": "Base link" [do not use]
-        # "1": "joint_base_translation"
-        # "2": "joint_mast"
-        # "3": "joint_lift"
-        # "4": "joint_arm_l4" [do not use - fixed base link of wrist extension]
-        # "5": "joint_arm_l3" [sum of l0-l3 is wrist_extension]
-        # "6": "joint_arm_l2" [sum of l0-l3 is wrist_extension]
-        # "7": "joint_arm_l1" [sum of l0-l3 is wrist_extension]
-        # "8": "joint_arm_l0" [sum of l0-l3 is wrist_extension]
-        # "9": "joint_wrist_yaw"
-        # "10": "joint_wrist_yaw_bottom" [do not use - dummy link?]
-        # "11": "joint_wrist_pitch"
-        # "12": "joint_wrist_roll"
-        # "13": "joint_straight_gripper"
-        # "14": "joint_grasp_center" [do not use - not actuated AFAIK]
+        # "0": "joint_base_translation"
+        # "1": "joint_mast"
+        # "2": "joint_lift"
+        # "3": "joint_arm_l4" [do not use - fixed base link of wrist extension]
+        # "4": "joint_arm_l3" [sum of l0-l3 is wrist_extension]
+        # "5": "joint_arm_l2" [sum of l0-l3 is wrist_extension]
+        # "6": "joint_arm_l1" [sum of l0-l3 is wrist_extension]
+        # "7": "joint_arm_l0" [sum of l0-l3 is wrist_extension]
+        # "8": "joint_wrist_yaw"
+        # "9": "joint_wrist_yaw_bottom" [do not use - dummy link?]
+        # "10": "joint_straight_gripper"
+        # "11": "joint_grasp_center" [do not use - not actuated AFAIK]
 
         # default poses without roll, pitch and base link
         self._stowed_pose = [0.0, 0.0, 0.2, 0.0, 0.0, 0.0, 0.0, 0.0, 3.4, 0.0, 0.0, 0.0]
         self._mid_pose = [0.0, 0.0, 0.6, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+        # TODO: Add a default pose which is our pre-ik pose.
+        self.pre_ik_pose = [0.0, 0.0, 0.8990015196900174, 0.0, 0.05263223492577255, 0.05263223492577255, 0.05263223492577255, 0.05263223492577255, 0.03195793308095086, 0.0, 0.0, 0.0]
         # state
-        self.pose = self._mid_pose.copy()
+        self.pose = self.pre_ik_pose.copy()
 
     def get_pose_vector(self) -> list:
         """
