@@ -73,7 +73,7 @@ class StretchNode(hm.HelloNode):
             'translate_mobile_base': 0.0,
             'joint_lift': 0.586,
             'wrist_extension': 0.0,
-            'joint_wrist_yaw': 0.027
+            'joint_wrist_yaw': 1.52822835993107
         }
         rospy.loginfo('Moving the arm to carrying position...')
         self.main(pose_dict)
