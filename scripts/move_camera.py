@@ -5,9 +5,7 @@ import time
 from control_msgs.msg import FollowJointTrajectoryGoal
 from trajectory_msgs.msg import JointTrajectoryPoint
 import hello_helpers.hello_misc as hm
-
-
-# TODO: Make this class to work with a ROS service.
+from std_srvs.srv import Trigger, TriggerResponse
 
 
 class MoveCameraCommand(hm.HelloNode):
@@ -16,6 +14,11 @@ class MoveCameraCommand(hm.HelloNode):
   """
   def __init__(self):
     hm.HelloNode.__init__(self)
+    hm.HelloNode.main(self, 'issue_command', 'issue_command', wait_for_first_pointcloud=False)
+
+    self.delivery_service = rospy.Service('execute_camera_movement', Trigger, self.main)
+    rospy.loginfo('execute_camera_movement service ready!!!')
+
 
   def issue_movecamera_command(self):
     """
@@ -37,20 +40,26 @@ class MoveCameraCommand(hm.HelloNode):
     rospy.loginfo('Sent list of goals = {0}'.format(trajectory_goal))
     self.trajectory_client.wait_for_result()
 
-  def main(self):
+  def main(self, req):
     """
     Function that initiates the movecamera_command function.
     :param self: The self reference.
     """
-    hm.HelloNode.main(self, 'issue_command', 'issue_command', wait_for_first_pointcloud=False)
-    rospy.loginfo('issuing move camera command...')
-    self.issue_movecamera_command()
-    time.sleep(2)
+    try:
+      rospy.loginfo('issuing move camera command...')
+      self.issue_movecamera_command()
+      time.sleep(2)
+      return TriggerResponse(success=True, message="Camera movement executed successfully")
+    except Exception as e:
+        # If any error occurs during execution, return False
+        rospy.logerr(f"Error during moving camera execution: {str(e)}")
+        return TriggerResponse(success=False, message=f"Error during move camera execution: {str(e)}")
+
 
 
 if __name__ == '__main__':
   try:
     node = MoveCameraCommand()
-    node.main()
+    rospy.spin()
   except KeyboardInterrupt:
     rospy.loginfo('interrupt received, so shutting down')
