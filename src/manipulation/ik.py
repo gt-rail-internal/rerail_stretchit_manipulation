@@ -1,7 +1,8 @@
+#!/usr/bin/env python3
 import ikpy.chain
 import numpy as np
 import json
-from utils import rotation_matrix_to_rpy
+from manipulation.utils import rotation_matrix_to_rpy
 from typing import List
 
 # NOTE: Adapted from: https://github.com/mlamsey/stretch_ik
@@ -148,9 +149,8 @@ class StretchIK:
                                             orientation_mode="all",
                                             initial_position=q0)
         
-        
-        #--------------------------- This is not working ------------------------------#
-        # TODO: Change this to the one in the Hello Robot Tutorial
+
+        #--------------- Checks error if flag is passed --------------- #
         if bool_check_error:
             # compute error
             fk_soln = self.chain.forward_kinematics(q_soln)
@@ -161,13 +161,10 @@ class StretchIK:
             soln_rpy = rotation_matrix_to_rpy(soln_ori)
             target_rpy = rotation_matrix_to_rpy(target_ori)
             soln_ori_error = np.linalg.norm(np.array(target_rpy) - np.array(soln_rpy))
-
-            # check if IK converged
-            eps_pos = 3 * 1e-2
-            eps_ori = 1e-2
-            if soln_pos_error > eps_pos or soln_ori_error > eps_ori:
-                print(f"StretchDexIK::solve: IK failed to converge to target pose. Position error: {soln_pos_error}, Orientation error: {soln_ori_error}")
-                return None
+            print('#------------ Inverse Kinematics ------------#')
+            print('Solution pose error: ', soln_pos_error)
+            print('Solution ori error: ', soln_ori_error)
+            print('----------------------------------------------')
         #-------------------------------------------------------------------------------#
         # get pose as dict that can be sent to move_to_pose()
         stretch_pose.set_pose(q_soln)

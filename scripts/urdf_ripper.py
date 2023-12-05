@@ -3,7 +3,8 @@ import numpy as np
 import pathlib
 import stretch_body.hello_utils as hu
 
-# NOTE: copied from https://github.com/hello-robot/stretch_tutorials/blob/master/stretch_body/jupyter/inverse_kinematics.ipynb
+# NOTE: copied from: https://github.com/hello-robot/stretch_tutorials/blob/master/stretch_body/jupyter/inverse_kinematics.ipynb
+# NOTE: obtained from: https://github.com/mlamsey/stretch_ik
 
 def make_ik_urdf(save_path: str):
     """

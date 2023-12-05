@@ -1,0 +1,14 @@
+<launch>
+    <!-- <arg name="cloud_topic" default="/camera/depth/color/points" />
+    <arg name="classifier_file" default="random_forest.pkl" /> -->
+    
+    <node pkg="rerail_stretchit_manipulation" type="manipulation_grasp.py" name="manipulation_grasp" output="screen">
+    </node>
+
+    <node pkg="rerail_stretchit_manipulation" type="manipulation_delivery.py" name="manipulation_delivery" output="screen">
+    </node>
+
+    <node pkg="rerail_stretchit_manipulation" type="move_camera.py" name="move_camera" output="screen">
+    </node>
+
+</launch>
