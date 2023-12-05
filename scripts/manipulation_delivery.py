@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import rospy
 import time
 from control_msgs.msg import FollowJointTrajectoryGoal
@@ -5,9 +6,12 @@ from trajectory_msgs.msg import JointTrajectoryPoint
 import hello_helpers.hello_misc as hm
 from std_srvs.srv import Trigger, TriggerResponse
 
+# Author and Maintainer: Juan Antonio Robledo (jroblar98@gmail.com)
+
 class DeliverObjectCommand(hm.HelloNode):
   """
   A class that sends multiple joint trajectory goals to the stretch robot to deliver objects.
+  All of this trajectories have hardcoded positions that can be modified.
   """
   def __init__(self):
     hm.HelloNode.__init__(self)
@@ -23,7 +27,7 @@ class DeliverObjectCommand(hm.HelloNode):
     Function lifts the arm to a safe position pior delivery
     """
     lift_arm = JointTrajectoryPoint()
-    lift_arm.positions = [0.942526617861438, 0.0, 1.52822835993107, -0.126]
+    lift_arm.positions = [0.942526617861438, 0.0, 3.4, -0.126]
 
 
     trajectory_goal = FollowJointTrajectoryGoal()
@@ -45,15 +49,15 @@ class DeliverObjectCommand(hm.HelloNode):
     """
     # extend arm
     point1 = JointTrajectoryPoint()
-    point1.positions = [0.942526617861438, 0.313410513603503, 0.027, -0.126]
+    point1.positions = [0.942526617861438, 0.513410513603503, 0.027, -0.126]
 
     # lower arm
     point2 = JointTrajectoryPoint()
-    point2.positions = [0.8398899662603034, 0.313410513603503, 0.027, -0.126]
+    point2.positions = [0.888899662603034, 0.513410513603503, 0.027, -0.126]
 
     # release grasp
     point3 = JointTrajectoryPoint()
-    point3.positions = [0.8398899662603034, 0.313410513603503, 0.027, 0.203]
+    point3.positions = [0.8398899662603034, 0.503410513603503, 0.026, 0.203]
 
     # Execute trajectory
     trajectory_goal = FollowJointTrajectoryGoal()
@@ -76,7 +80,7 @@ class DeliverObjectCommand(hm.HelloNode):
 
     # lift arm
     point4 = JointTrajectoryPoint()
-    point4.positions = [0.942526617861438, 0.313410513603503, 0.027, 0.203]
+    point4.positions = [0.942526617861438, 0.513410513603503, 0.027, 0.203]
 
     # retract the arm and hide wrist
     point5 = JointTrajectoryPoint()
@@ -122,13 +126,13 @@ class DeliverObjectCommand(hm.HelloNode):
     """
     try:
         self.lift_arm_to_safe_pose()
-        time.sleep(2)
+        time.sleep(1)
         self.reach_delivery_pose()
-        time.sleep(2)
+        time.sleep(1)
         self.return_to_safe_pose()
-        time.sleep(2)
+        time.sleep(1)
         self.issue_stow_command()
-        time.sleep(2)
+        time.sleep(1)
 
         # If all movements were successful, return True
         return TriggerResponse(success=True, message="Delivery task executed successfully")

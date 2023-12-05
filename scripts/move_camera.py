@@ -11,6 +11,9 @@ from std_srvs.srv import Trigger, TriggerResponse
 class MoveCameraCommand(hm.HelloNode):
   """
   A class that sends a goal trajectory to Strecht's camera.
+
+  The objective is to position the camera perpendicular to the robot's base_link so we can detect the object we want to grasp.
+
   """
   def __init__(self):
     hm.HelloNode.__init__(self)
@@ -27,6 +30,8 @@ class MoveCameraCommand(hm.HelloNode):
     :param self: The self reference.
     """
     point0 = JointTrajectoryPoint()
+
+    # This positions are harcoded and can be modified
     point0.positions = [-1.7042984434017716, -0.39189916300751343]
 
 
