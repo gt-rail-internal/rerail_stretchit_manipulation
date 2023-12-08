@@ -11,9 +11,12 @@ This package's primary component is `manipulation_grasp.py`, a ROS Noetic servic
 - `urdf_ripper.py`: Adapted from [mlamsey's stretch_ik repository](https://github.com/mlamsey/stretch_ik), this script streamlines the robot's original URDF file by eliminating unnecessary links, generating a new, optimized version.
 
 ### Inputs and Outputs (ROS msg types)
-- `manipulation_grasp.py` / Input: `geometry_msgs/Pose` / Output: `std_msgs/Bool.msg`
-- `manipulation_delivery.py` /Input: `None` / Output: `std_msgs/Bool.msg`
-- `move_camera` / Input: `None` / Output: `std_msgs/Bool.msg`
+- `manipulation_grasp.py`: 
+    - Input: `geometry_msgs/Pose` / Output: `std_msgs/Bool.msg`
+- `manipulation_delivery.py`: 
+    - Input: `None` / Output: `std_msgs/Bool.msg`
+- `move_camera`: 
+    - Input: `None` / Output: `std_msgs/Bool.msg`
 
 ## Generating a URDF for ikpy
 
