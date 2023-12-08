@@ -10,6 +10,11 @@ This package's primary component is `manipulation_grasp.py`, a ROS Noetic servic
 - `move_camera`: A service for repositioning the robot's camera to a predefined location, enhancing object visibility for grasping.
 - `urdf_ripper.py`: Adapted from [mlamsey's stretch_ik repository](https://github.com/mlamsey/stretch_ik), this script streamlines the robot's original URDF file by eliminating unnecessary links, generating a new, optimized version.
 
+### Inputs and Outputs (ROS msg types)
+- `manipulation_grasp.py` / Input: `geometry_msgs/Pose` / Output: `std_msgs/Bool.msg`
+- `manipulation_delivery.py` /Input: `None` / Output: `std_msgs/Bool.msg`
+- `move_camera` / Input: `None` / Output: `std_msgs/Bool.msg`
+
 ## Generating a URDF for ikpy
 
 The `/urdf` folder contains a simplified URDF file for ikpy usage. To regenerate it (for instance, after calibrating your Stretch URDF), follow these instructions:
