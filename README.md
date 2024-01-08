@@ -1,4 +1,5 @@
 # rerail_stretchit_manipulation
+This package was designed for and tested with a Stretch 2 Mobile Manipulator from Hello Robot.
 
 ## Package Description
 
